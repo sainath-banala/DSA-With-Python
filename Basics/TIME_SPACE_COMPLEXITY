@@ -1,0 +1,17 @@
+# time complexity refers to the time increase rate with the increase in the input size
+--> time complexity will be measured using Big O Notation - O()
+--> While computing time complexity, we will  consider these three points:
+    --> Always consider the worst case
+    --> Ignore the constants
+    --> Ignore the lower values
+
+
+# space complexity refers to the Auxilary space + input space
+--> where auxilary space is the space that we used to solve the problem
+--> input space is the storage that to store the 
+Ex:
+---
+a=10, b=20
+c = a + b 
+
+here c is the auxilary space, and a, b are the input space
