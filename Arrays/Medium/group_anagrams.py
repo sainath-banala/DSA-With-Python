@@ -57,7 +57,7 @@ class Solution:
                     return False
         return True
 
-    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+    def groupAnagrams_my_approach(self, strs: list[str]) -> list[list[str]]:
         length_of_list = len(strs)
         if length_of_list == 0:
             return []
@@ -86,9 +86,37 @@ class Solution:
         
         # print(output_list)
         return output_list
+    
+    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+
+        # dictionary to store all unique strings with same combination(since Anagrams have common property → Sorted string is the SAME)
+        anagram_map = {}
+        # iterating through each string in the list
+        for string in strs:
+            # initalizing a list to store the count of each alphabet in the string at that respective character position
+            char_cnt_in_string = [0] * 26
+            # getting the character count of each element 
+            for character in string:
+                # Assuming only lowercase a-z
+                index = ord(character) - ord('a')
+                # incrementing the count of a specific character at that specific alphabet location Ex: if the character is d, we will update index 3 to 1
+                char_cnt_in_string[index] += 1
+            
+            # since list is not hashable, it can't be kept as key in dictionary(as it will raise error: TypeError: unhashable type: 'list')
+            # that's why we are converting the list to tuple which is immutable
+            key = tuple(char_cnt_in_string)
+            
+            # checking if the same key that is the words with same character count already exists in the dictionary
+            if key in anagram_map:
+                anagram_map[key].append(string)
+            else:
+                anagram_map[key] = [string]
+
+        return list(anagram_map.values())
+
 
 if __name__ == '__main__':
     solution = Solution()
     list_of_strings = list(map(str, input("Enter the words separated by space: ").strip().split(" ")))
-    # list_of_strings = ["rag","orr","err","bad","foe","ivy","tho","gem","len","cat","ron","ump","nev","cam","pen","dis","rob","tex","sin","col","buy","say","big","wed","eco","bet","fog","buy","san","kid","lox","sen","ani","mac","eta","wis","pot","sid","dot","ham","gay","oar","sid","had","paw","sod","sop"]
+    list_of_strings = ["rag","orr","err","bad","foe","ivy","tho","gem","len","cat","ron","ump","nev","cam","pen","dis","rob","tex","sin","col","buy","say","big","wed","eco","bet","fog","buy","san","kid","lox","sen","ani","mac","eta","wis","pot","sid","dot","ham","gay","oar","sid","had","paw","sod","sop"]
     print(solution.groupAnagrams(list_of_strings))
