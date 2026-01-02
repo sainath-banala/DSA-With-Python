@@ -20,7 +20,7 @@ where left will store the multiplication value till before that value
 and right will store the multiplication value from after that value to end of the array
 """
 class Solution:
-    def productExceptSelf(self, nums: list[int]) -> bool:
+    def productExceptSelf_myapproach(self, nums: list[int]) -> bool:
         # starting the left_array and right_array with 1, so that the final output will not change and for handling the base case
         left_array = []
         right_array = []
@@ -46,6 +46,25 @@ class Solution:
             final_array.append(left_array[i] * right_array[i])
         
         return final_array
+    
+    # optimal solution
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
+        n = len(nums)
+        result = [1] * n
+        
+        # Build left products directly in result
+        left = 1
+        for i in range(n):
+            result[i] = left
+            left *= nums[i]
+        
+        # Multiply by right products
+        right = 1
+        for i in range(n-1, -1, -1):
+            result[i] *= right
+            right *= nums[i]
+        
+        return result
 
 
 if __name__ == '__main__':
